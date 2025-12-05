@@ -1,5 +1,18 @@
 # IQS TFG Document Workspace - Agent Configuration
 
+## ⚠️ IMPORTANT: Use GitHub Repository Version!
+
+**DO NOT edit the local version of these files!**
+
+All development should be done from the GitHub repository:
+- **Repository**: https://github.com/mbhaylett23/IQS_TFG_interactive
+- **Clone command**: `git clone https://github.com/mbhaylett23/IQS_TFG_interactive.git`
+
+The local folder `c:\Users\mbruy\OneDrive - IQS\TFG\iqs_tfg_explorer\` is synced with GitHub.
+Always `git pull` before making changes and `git push` after!
+
+---
+
 ## Overview
 This document describes the MCP (Model Context Protocol) servers and AI agents configured for extracting information from various document types in the TFG workspace.
 
