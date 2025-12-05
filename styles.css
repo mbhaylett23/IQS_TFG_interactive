@@ -778,6 +778,8 @@ body {
 
 .modal-body {
     padding: 30px;
+    max-height: 70vh;
+    overflow-y: auto;
 }
 
 .modal-section {
@@ -868,6 +870,30 @@ body {
     border-radius: var(--radius-xl);
     font-size: 0.8rem;
     font-weight: 500;
+}
+
+/* ===== Full TFG Text Sections ===== */
+.full-description,
+.objective-text,
+.methodology-text {
+    line-height: 1.8;
+    color: var(--text-secondary);
+    text-align: justify;
+    white-space: pre-wrap;
+}
+
+.full-description {
+    font-size: 0.95rem;
+}
+
+.objective-text,
+.methodology-text {
+    font-size: 0.9rem;
+    font-style: italic;
+    padding: 15px;
+    background: rgba(99, 102, 241, 0.05);
+    border-left: 3px solid var(--primary);
+    border-radius: var(--radius-md);
 }
 
 /* ===== Footer ===== */

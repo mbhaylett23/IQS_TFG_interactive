@@ -67,18 +67,17 @@ function createTreeBranch(area) {
     div.dataset.areaId = area.id;
     
     const topicsHTML = area.topics.map(topic => {
-        const supervisorChips = topic.supervisors.slice(0, 2).map(sup => {
+        // Show ALL supervisors, not just first 2
+        const supervisorChips = topic.supervisors.map(sup => {
             const shortName = sup.replace('Dr. ', '').replace('Dra. ', '').split(' ').slice(0, 2).join(' ');
             return `<span class="supervisor-chip"><span class="pi-icon">👨‍🔬</span>${shortName}</span>`;
         }).join('');
-        
-        const moreCount = topic.supervisors.length > 2 ? `<span class="supervisor-chip">+${topic.supervisors.length - 2}</span>` : '';
-        
+
         return `
             <div class="topic-node" onclick="openTopicModal('${area.id}', '${topic.id}')">
                 <div class="topic-node-title">${topic.title}</div>
                 <div class="topic-node-supervisors">
-                    ${supervisorChips}${moreCount}
+                    ${supervisorChips}
                 </div>
             </div>
         `;
@@ -336,21 +335,48 @@ function filterByLecturer(lecturerName) {
 function openTopicModal(areaId, topicId) {
     const area = researchData.areas.find(a => a.id === areaId);
     const topic = area.topics.find(t => t.id === topicId);
-    
+
     if (!topic) return;
-    
+
     // Update modal content
     document.getElementById('modalCategory').textContent = area.name;
     document.getElementById('modalCategory').style.background = `var(--color-${getCategoryFromArea(areaId)})`;
     document.getElementById('modalTitle').textContent = topic.title;
-    document.getElementById('modalDescription').textContent = topic.description;
-    
+
+    // Full Description - use fullDescription if available, otherwise fall back to description
+    const fullDescElement = document.getElementById('modalFullDescription');
+    if (topic.fullDescription) {
+        fullDescElement.innerHTML = topic.fullDescription.replace(/\n/g, '<br><br>');
+    } else {
+        fullDescElement.textContent = topic.description;
+    }
+
+    // Objective (if available)
+    const objectiveSection = document.getElementById('modalObjectiveSection');
+    const objectiveElement = document.getElementById('modalObjective');
+    if (topic.objective) {
+        objectiveSection.style.display = 'block';
+        objectiveElement.innerHTML = topic.objective.replace(/\n/g, '<br><br>');
+    } else {
+        objectiveSection.style.display = 'none';
+    }
+
+    // Methodology (if available)
+    const methodologySection = document.getElementById('modalMethodologySection');
+    const methodologyElement = document.getElementById('modalMethodology');
+    if (topic.methodology) {
+        methodologySection.style.display = 'block';
+        methodologyElement.innerHTML = topic.methodology.replace(/\n/g, '<br><br>');
+    } else {
+        methodologySection.style.display = 'none';
+    }
+
     // Subtopics
     document.getElementById('modalSubtopics').innerHTML = topic.subtopics
         .map(st => `<span class="subtopic-item">${st}</span>`)
         .join('');
-    
-    // Supervisors
+
+    // Supervisors - Show ALL supervisors
     document.getElementById('modalSupervisors').innerHTML = topic.supervisors
         .map(sup => {
             const initials = sup.replace('Dr. ', '').replace('Dra. ', '')
@@ -369,12 +395,12 @@ function openTopicModal(areaId, topicId) {
             `;
         })
         .join('');
-    
+
     // Keywords
     document.getElementById('modalKeywords').innerHTML = topic.keywords
         .map(kw => `<span class="keyword-tag">${kw}</span>`)
         .join('');
-    
+
     // Show modal
     document.getElementById('topicModal').classList.add('active');
     document.body.style.overflow = 'hidden';
