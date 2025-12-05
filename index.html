@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IQS TFG Research Areas 2025-2026 - Interactive Explorer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>🎓 IQS TFG Research Areas</h1>
+                <p class="subtitle">Interactive Explorer for Final Degree Projects 2025-2026</p>
+            </div>
+            <div class="header-stats" id="headerStats">
+                <div class="stat">
+                    <span class="stat-number" id="totalTopics">0</span>
+                    <span class="stat-label">Research Topics</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" id="totalLecturers">0</span>
+                    <span class="stat-label">Lecturers</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" id="totalAreas">0</span>
+                    <span class="stat-label">Research Areas</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- View Toggle -->
+        <div class="view-toggle">
+            <button class="view-btn active" data-view="cards" title="Card View">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                Cards
+            </button>
+            <button class="view-btn" data-view="mindmap" title="Mind Map View">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M12 2v7M12 15v7M2 12h7M15 12h7"></path>
+                    <circle cx="12" cy="2" r="2"></circle>
+                    <circle cx="12" cy="22" r="2"></circle>
+                    <circle cx="2" cy="12" r="2"></circle>
+                    <circle cx="22" cy="12" r="2"></circle>
+                </svg>
+                Mind Map
+            </button>
+        </div>
+
+        <!-- Search and Filter Section -->
+        <div class="controls">
+            <div class="search-box">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <input type="text" id="searchInput" placeholder="Search topics, keywords, or lecturers...">
+                <button class="clear-btn" id="clearSearch" title="Clear search">×</button>
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Areas</button>
+                <button class="filter-btn" data-filter="biomedical">Biomedical</button>
+                <button class="filter-btn" data-filter="biotechnology">Biotechnology</button>
+                <button class="filter-btn" data-filter="chemistry">Chemistry</button>
+                <button class="filter-btn" data-filter="engineering">Engineering</button>
+                <button class="filter-btn" data-filter="sustainability">Sustainability</button>
+                <button class="filter-btn" data-filter="ai">AI & Computing</button>
+                <button class="filter-btn" data-filter="pharmacy">Pharmacy</button>
+            </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <main class="main-content">
+            <!-- Research Areas Card View -->
+            <div class="mind-map-container active" id="mindMapContainer">
+                <!-- Areas will be dynamically generated -->
+            </div>
+
+            <!-- Tree Mind Map View -->
+            <div class="tree-mindmap-container" id="treeMindMapContainer">
+                <div class="tree-root">
+                    <div class="tree-center-node">
+                        <span class="node-icon">🎓</span>
+                        <span class="node-title">Research Topics (TFG) 2025-2026</span>
+                    </div>
+                    <div class="tree-branches" id="treeBranches">
+                        <!-- Branches will be dynamically generated -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lecturer Directory Panel -->
+            <aside class="lecturer-panel" id="lecturerPanel">
+                <div class="panel-header">
+                    <h2>👨‍🏫 Lecturers Directory</h2>
+                    <button class="toggle-panel" id="togglePanel">−</button>
+                </div>
+                <div class="lecturer-search">
+                    <input type="text" id="lecturerSearch" placeholder="Search lecturers...">
+                </div>
+                <div class="lecturer-list" id="lecturerList">
+                    <!-- Lecturers will be dynamically generated -->
+                </div>
+            </aside>
+        </main>
+
+        <!-- Topic Detail Modal -->
+        <div class="modal" id="topicModal">
+            <div class="modal-content">
+                <button class="modal-close" id="modalClose">×</button>
+                <div class="modal-header">
+                    <span class="modal-category" id="modalCategory"></span>
+                    <h2 id="modalTitle"></h2>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-section">
+                        <h3>📝 Description</h3>
+                        <p id="modalDescription"></p>
+                    </div>
+                    <div class="modal-section">
+                        <h3>🔬 Related Subtopics</h3>
+                        <div class="subtopics-list" id="modalSubtopics"></div>
+                    </div>
+                    <div class="modal-section">
+                        <h3>👨‍🔬 Supervisors</h3>
+                        <div class="supervisors-list" id="modalSupervisors"></div>
+                    </div>
+                    <div class="modal-section">
+                        <h3>🏷️ Keywords</h3>
+                        <div class="keywords-list" id="modalKeywords"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>IQS School of Engineering - Universitat Ramon Llull</p>
+            <p class="footer-note">Data extracted from TFG Topics 2025-2026 | Interactive Mind Map</p>
+        </footer>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
